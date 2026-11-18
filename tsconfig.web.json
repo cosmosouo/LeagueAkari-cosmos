@@ -2,6 +2,8 @@
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
   "include": [
     "src/renderer/env.d.ts",
+    "src/mobile/**/*",
+    "src/mobile/**/*.vue",
     "src/renderer/src-main-window/**/*",
     "src/renderer/src-main-window/**/*.vue",
     "src/renderer/src-aux-window/**/*",

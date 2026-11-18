@@ -8,6 +8,7 @@ import { ChampionDataRenderer } from '@renderer-shared/shards/champion-data'
 import { ExtraAssetsRenderer } from '@renderer-shared/shards/extra-assets'
 import { FeatureGatingRenderer } from '@renderer-shared/shards/feature-gating'
 import { AkariIpcRenderer } from '@renderer-shared/shards/ipc'
+import { LanMobileRenderer } from '@renderer-shared/shards/lan-mobile'
 import {
   LeagueClientRenderer,
   LeagueClientRendererConfig
@@ -45,6 +46,7 @@ manager.use(LeagueClientRenderer, {
   }
 } as LeagueClientRendererConfig)
 manager.use(LoggerRenderer)
+manager.use(LanMobileRenderer)
 manager.use(OpggRenderer)
 manager.use(PiniaMobxUtilsRenderer)
 manager.use(SettingUtilsRenderer)

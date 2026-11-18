@@ -83,6 +83,18 @@
       <ClientConnection ref="client-connection-body" />
     </NPopover>
 
+    <NPopover placement="right-end" :duration="250">
+      <template #trigger>
+        <div class="menu-item">
+          <div class="menu-item__inner">
+            <NIcon class="menu-item__icon"><PhonePortraitIcon /></NIcon>
+            <div class="menu-item__label">{{ t('lanMobile.title') }}</div>
+          </div>
+        </div>
+      </template>
+      <LanMobilePanel />
+    </NPopover>
+
     <!-- settings -->
     <NTooltip placement="right" :disabled="!isCollapsed">
       <template #trigger>
@@ -102,6 +114,7 @@
 
 <script setup lang="ts">
 import LcuImage from '@renderer-shared/components/LcuImage.vue'
+import LanMobilePanel from '@renderer-shared/components/lan-mobile/LanMobilePanel.vue'
 import StreamerModeMaskedText from '@renderer-shared/components/StreamerModeMaskedText.vue'
 import { useInstance } from '@renderer-shared/shards'
 import { useLeagueClientUxStore } from '@renderer-shared/shards/league-client-ux/store'
@@ -118,6 +131,7 @@ import {
   Settings28Filled as Settings28FilledIcon
 } from '@vicons/fluent'
 import { useElementSize } from '@vueuse/core'
+import { PhonePortrait as PhonePortraitIcon } from '@vicons/ionicons5'
 import { useTranslation } from 'i18next-vue'
 import { NBadge, NIcon, NPopover, NProgress, NTooltip, useNotification } from 'naive-ui'
 import { computed, useTemplateRef, watch } from 'vue'

@@ -7,6 +7,7 @@ import { ChampionDataRenderer } from '@renderer-shared/shards/champion-data'
 import { useChampionDataStore } from '@renderer-shared/shards/champion-data/store'
 import { useLeagueClientStore } from '@renderer-shared/shards/league-client/store'
 import type {
+  ChampionDataDetails,
   ChampionDataFallbackReason,
   ChampionDataLoadResult,
   ChampionDataMode,
@@ -49,6 +50,7 @@ import {
   toOpggChampionOverviewViewModel,
   toOpggMayhemAugmentsViewModel
 } from './champion-data-view-model'
+import { useLanMobileBridge } from './lan-mobile/desktop-bridge'
 import { hasItemsSets, useLoadout } from './utils/loadout'
 
 // 对齐 auto champ config (暂定)
@@ -128,6 +130,7 @@ export type OpggContext = {
   versions: Ref<string[]>
   champions: Ref<OpggChampionsResponse | null>
   overview: Ref<ChampionDataOverview | null>
+  details: Ref<ChampionDataDetails | null>
   champion: Ref<OpggChampionBuildResponse | null>
 
   kiwiAugments: Ref<OpggAramMayhemChampionAugmentsResponse | null>
@@ -253,6 +256,7 @@ export function provideOpgg() {
   const versions = shallowRef<string[]>([])
   const champions = shallowRef<OpggChampionsResponse | null>(null)
   const overview = shallowRef<ChampionDataOverview | null>(null)
+  const details = shallowRef<ChampionDataDetails | null>(null)
   const champion = shallowRef<OpggChampionBuildResponse | null>(null)
 
   const kiwiAugments = shallowRef<OpggAramMayhemChampionAugmentsResponse | null>(null)
@@ -276,6 +280,7 @@ export function provideOpgg() {
       isDataUnavailable.value = true
       champions.value = null
       overview.value = null
+      details.value = null
       champion.value = null
       kiwiAugments.value = null
       throw new ChampionDataUnavailableError(
@@ -372,6 +377,7 @@ export function provideOpgg() {
         isDataUnavailable.value = true
         champions.value = null
         overview.value = null
+        details.value = null
         champion.value = null
         kiwiAugments.value = null
         return false
@@ -458,6 +464,7 @@ export function provideOpgg() {
       }
 
       let updatedChampionData: OpggChampionBuildResponse | null = null
+      let updatedDetailsData: ChampionDataDetails | null = null
       let updatedKiwiAugmentsData: OpggAramMayhemChampionAugmentsResponse | null = null
 
       if (targetChampionId) {
@@ -467,10 +474,11 @@ export function provideOpgg() {
           ({ signal }) => championData.loadDetails(query, targetChampionId, { signal }),
           { tags: ['opgg-group'] }
         )
-        const details = unwrapResult(result, generation)
-        updatedChampionData = toOpggChampionDetailsViewModel(details)
+        const loadedDetails = unwrapResult(result, generation)
+        updatedDetailsData = loadedDetails
+        updatedChampionData = toOpggChampionDetailsViewModel(loadedDetails)
         updatedKiwiAugmentsData = toOpggMayhemAugmentsViewModel(
-          details,
+          loadedDetails,
           toChampionDataMode(targetMode)
         )
       }
@@ -493,8 +501,10 @@ export function provideOpgg() {
 
       if (updatedChampionData) {
         champion.value = updatedChampionData
+        details.value = updatedDetailsData
       } else if (!targetChampionId) {
         champion.value = null
+        details.value = null
       }
 
       // 会在模式不匹配时主动清空
@@ -816,7 +826,7 @@ export function provideOpgg() {
     { immediate: true, debounce: 500 }
   )
 
-  provide(OpggContextKey, {
+  const context: OpggContext = {
     currentTab,
 
     setTab,
@@ -836,6 +846,7 @@ export function provideOpgg() {
     versions,
     champions,
     overview,
+    details,
     champion,
 
     kiwiAugments,
@@ -856,7 +867,9 @@ export function provideOpgg() {
     refresh,
 
     cancel
-  })
+  }
+  provide(OpggContextKey, context)
+  useLanMobileBridge(context)
 }
 
 export function useOpgg() {

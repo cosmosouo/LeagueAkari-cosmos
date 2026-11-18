@@ -18,6 +18,7 @@ import { GameClientMain } from '@main/shards/game-client'
 import { InGameSendMain } from '@main/shards/in-game-send'
 import { AkariIpcMain } from '@main/shards/ipc'
 import { KeyboardShortcutsMain } from '@main/shards/keyboard-shortcuts'
+import { LanMobileMain } from '@main/shards/lan-mobile'
 import { LeagueClientMain } from '@main/shards/league-client'
 import { LeagueClientUxMain } from '@main/shards/league-client-ux'
 import { LoggerFactoryMain } from '@main/shards/logger-factory'
@@ -340,6 +341,7 @@ export function bootstrap() {
     manager.use(AutoMiscMain)
     manager.use(AutoSelectMain)
     manager.use(ChampionDataMain)
+    manager.use(LanMobileMain)
     manager.use(InGameSendMain)
     manager.use(OngoingGameMain)
     manager.use(RespawnTimerMain)

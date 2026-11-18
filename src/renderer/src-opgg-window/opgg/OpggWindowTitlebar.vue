@@ -24,6 +24,23 @@
       class="flex h-full justify-end transition-all duration-300 ease-in-out"
       :class="{ 'brightness-80': ws.focus === 'blurred' }"
     >
+      <NPopover trigger="click" placement="bottom-end" :show-arrow="false">
+        <template #trigger>
+          <NButton
+            quaternary
+            size="tiny"
+            class="h-full! rounded-none! px-2!"
+            style="-webkit-app-region: no-drag"
+            :title="t('lanMobile.title')"
+          >
+            <template #icon
+              ><NIcon><PhonePortraitIcon /></NIcon
+            ></template>
+            {{ t('lanMobile.title') }}
+          </NButton>
+        </template>
+        <LanMobilePanel />
+      </NPopover>
       <div
         :title="ws.settings.pinned ? t('opgg.titlebar.unpin') : t('opgg.titlebar.pin')"
         class="flex h-full w-11.25 cursor-pointer items-center justify-center text-xs transition-all duration-300 hover:bg-black/10 active:brightness-80 dark:hover:bg-white/10"
@@ -57,14 +74,15 @@
 
 <script setup lang="ts">
 import { useInstance } from '@renderer-shared/shards'
+import LanMobilePanel from '@renderer-shared/components/lan-mobile/LanMobilePanel.vue'
 import { useAppCommonStore } from '@renderer-shared/shards/app-common/store'
 import { WindowManagerRenderer } from '@renderer-shared/shards/window-manager'
 import { useOpggWindowStore } from '@renderer-shared/shards/window-manager/store'
 import { PinFilled as PinFilledIcon } from '@vicons/carbon'
 import { DividerShort20Regular as DividerShort20RegularIcon } from '@vicons/fluent'
-import { Close as CloseIcon } from '@vicons/ionicons5'
+import { Close as CloseIcon, PhonePortrait as PhonePortraitIcon } from '@vicons/ionicons5'
 import { useTranslation } from 'i18next-vue'
-import { NIcon } from 'naive-ui'
+import { NButton, NIcon, NPopover } from 'naive-ui'
 
 const { t } = useTranslation()
 

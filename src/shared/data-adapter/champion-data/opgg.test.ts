@@ -76,6 +76,40 @@ describe('OP.GG champion data adapter', () => {
     })
   })
 
+  it('excludes other lanes instead of treating their aggregate ranks as selected-lane ranks', () => {
+    const stats = {
+      play: 100,
+      win_rate: 0.52,
+      pick_rate: 0.1,
+      ban_rate: 0.02,
+      kda: 3,
+      tier_data: tierData
+    }
+    const response = {
+      data: [
+        {
+          id: 103,
+          average_stats: stats,
+          positions: [{ name: 'MID', stats, counters: [] }]
+        },
+        {
+          id: 21,
+          average_stats: { ...stats, tier_data: { ...tierData, rank: 1 } },
+          positions: [{ name: 'ADC', stats, counters: [] }]
+        },
+        { id: 895, average_stats: null, positions: null }
+      ],
+      meta: { version: '16.23' }
+    } as unknown as OpggChampionsResponse
+
+    expect(
+      adaptOpggChampionOverview(response, { mode: 'ranked', position: 'middle' }).sections.champions
+    ).toMatchObject([{ championId: 103, position: 'middle', performance: { rank: 3 } }])
+    expect(
+      adaptOpggChampionOverview(response, { mode: 'ranked', position: 'all' }).sections.champions
+    ).toHaveLength(3)
+  })
+
   it('keeps champions whose current mode has no aggregate statistics', () => {
     const response = {
       data: [

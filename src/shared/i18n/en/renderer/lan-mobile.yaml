@@ -1,0 +1,106 @@
+lanMobile:
+  title: LAN mobile
+  enabled: Enable
+  disabled: Disabled
+  running: Running
+  clients_one: '{{count}} phone connected'
+  clients_other: '{{count}} phones connected'
+  miniRank: 'OP.GG · {{mode}} · Rank {{rank}}'
+  settings:
+    description: View champion data in a phone browser on the same local network and follow desktop champion and filter changes
+    enableLabel: Enable LAN mobile
+    portLabel: Service port
+    portDescription: Local port used by the phone, 23946 by default. Scan again after changing it
+    applyLabel: Allow applying runes / spells from mobile
+    applyDescription: Apply recommendations for the selected champion during champion select
+    addressLabel: Access address
+    addressDescription: Connect the computer and phone to the same Wi-Fi, then open the address or scan the QR code
+    stopped: Enable the service to show an address
+    waiting: Waiting for the champion data window
+    loopbackOnly: No LAN address found. Connect to Wi-Fi or Ethernet and retry
+    copy: Copy address
+    copied: Address copied
+    copyFailed: Copy failed. Please scan the QR code
+    qrCode: QR code
+    scan: Scan with your phone camera or browser
+    restart: Restart service
+    saveFailed: Could not save the setting
+  serviceErrors:
+    port-in-use: Port is already in use. Choose another port or close the other program
+    start-failed: Could not start the mobile service. Please retry
+  phone:
+    title: Champion data
+    clientConnected: Client connected
+    clientDisconnected: Client offline
+    synchronized: Synced
+    reconnecting: Reconnecting
+    invalidAddress: This address has expired. Scan the desktop QR code again or copy the latest address
+    offline: Disconnected from the computer. Reconnecting. Keep Akari running and use the same Wi-Fi
+    reconnect: Reconnect
+    connecting: Connecting to the computer
+    waitingForDesktop: Waiting for the desktop champion data window
+    source: Source
+    mode: Mode
+    region: Region
+    tier: Rank tier
+    patch: Patch
+    position: Position
+    filters: Filters
+    refresh: Refresh
+    champions: Rankings
+    currentChampion: Champion
+    searchChampion: Search champions
+    searchAugment: Search augments
+    effectiveSource: 'Current source: {{source}}'
+    loading: Loading
+    dataUnavailable: No champion data is available for this mode. Change source or refresh later
+    empty: No data
+    details: Details
+    close: Close
+    noDescription: No description available
+    all: All
+    rarity: Augment rarity
+    rarities:
+      kSilver: Silver
+      kGold: Gold
+      kPrismatic: Prismatic
+    sections: Champion data sections
+    section:
+      all: All
+      items: Items
+      augments: Augments
+      runes: Runes / spells
+      skills: Skills
+    itemSlots:
+      starting: Starting items
+      boots: Boots
+      core: Core items
+      fourth: Fourth item
+      fifth: Fifth item
+      sixth: Sixth item
+      last: Later items
+      prism: Prismatic items
+    itemRecommendation: 'Item recommendation #{{rank}}'
+    runes: Rune pages
+    spells: Summoner spells
+    apply: Apply
+    applyAll: Apply runes / spells
+    applied: Applied to the League client
+  errors:
+    unauthorized: This address has expired. Use the latest desktop address
+    invalid-command: This action is unavailable. Wait for synchronization and retry
+    desktop-unavailable: Enable the champion data window on the computer
+    data-unavailable: Could not load data. Refresh and retry
+    busy: Another action is in progress. Please wait
+    timeout: Action timed out. Check the desktop and retry
+    apply-disabled: Applying runes / spells from mobile is disabled on the desktop
+    client-disconnected: Connect the League client first
+    not-in-champ-select: Apply is available only during champion select, excluding spectating
+    champion-mismatch: Recommendations do not match the selected champion. Wait for synchronization
+    mode-mismatch: Recommendations do not match the current game mode
+    stale-view: Champion data has changed. Wait for synchronization and retry
+    no-recommendation: No applicable recommendation is available
+    no-editable-rune-page: No editable rune page is available. Free up a rune page first
+    client-write-failed: Could not apply to the client. Check its state and retry
+    partially-applied: Some changes were applied, but others failed. Check the client and retry
+    service-stopped: The mobile service is disabled. Enable it and scan the new QR code

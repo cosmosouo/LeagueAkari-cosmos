@@ -8,20 +8,36 @@
           :duration="100"
           :delay="300"
           :keep-alive-on-hover="false"
-          :disabled="!hasChampionAdjustment(lcs.champSelect.currentChampion || -1)"
+          :disabled="
+            !hasChampionAdjustment(lcs.champSelect.currentChampion || -1) &&
+            !championRanks[lcs.champSelect.currentChampion || -1]
+          "
         >
           <template #trigger>
-            <ChampionIcon
-              class="size-9 cursor-default rounded-full border border-black/10 dark:border-white/10"
-              :class="
-                getChampionImageClass(
-                  championAdjustment(lcs.champSelect.currentChampion || -1)?.overallEffect
-                )
-              "
-              :champion-id="lcs.champSelect.currentChampion || -1"
-            />
+            <div class="ranked-champion-icon">
+              <ChampionIcon
+                class="size-9 cursor-default rounded-full border border-black/10 dark:border-white/10"
+                :class="
+                  getChampionImageClass(
+                    championAdjustment(lcs.champSelect.currentChampion || -1)?.overallEffect
+                  )
+                "
+                :champion-id="lcs.champSelect.currentChampion || -1"
+              />
+              <span
+                v-if="championRanks[lcs.champSelect.currentChampion || -1]"
+                class="champion-rank"
+                >#{{ championRanks[lcs.champSelect.currentChampion || -1] }}</span
+              >
+            </div>
           </template>
           <div class="rounded-xs bg-neutral-100 px-2 py-1 dark:bg-neutral-900">
+            <div
+              v-if="championRanks[lcs.champSelect.currentChampion || -1]"
+              class="mb-1 text-xs font-medium"
+            >
+              {{ rankDescription(lcs.champSelect.currentChampion || -1) }}
+            </div>
             <div
               class="flex text-[11px] text-neutral-900/60 dark:text-neutral-100/60"
               v-for="b of championAdjustment(lcs.champSelect.currentChampion || -1)
@@ -88,24 +104,34 @@
           v-for="c of combinedChampions"
           :key="c.championId"
           :keep-alive-on-hover="false"
-          :disabled="!hasChampionAdjustment(c.championId)"
+          :disabled="!hasChampionAdjustment(c.championId) && !championRanks[c.championId]"
         >
           <template #trigger>
-            <ChampionIcon
-              class="size-8 cursor-pointer rounded-xs border border-black/10 dark:border-white/10"
-              :class="[
-                getChampionImageClass(championAdjustment(c.championId)?.overallEffect || 'neutral'),
-                {
-                  'cursor-not-allowed grayscale-[0.8]':
-                    !isChampionSwappable(c.championId) || !canUseBench
-                }
-              ]"
-              :champion-id="c.championId"
-              @click="() => handleBenchSwapOrPick(c.championId)"
-              @click.right="handleBenchSwapOrPick(c.championId, false)"
-            />
+            <div class="ranked-champion-icon">
+              <ChampionIcon
+                class="size-8 cursor-pointer rounded-xs border border-black/10 dark:border-white/10"
+                :class="[
+                  getChampionImageClass(
+                    championAdjustment(c.championId)?.overallEffect || 'neutral'
+                  ),
+                  {
+                    'cursor-not-allowed grayscale-[0.8]':
+                      !isChampionSwappable(c.championId) || !canUseBench
+                  }
+                ]"
+                :champion-id="c.championId"
+                @click="() => handleBenchSwapOrPick(c.championId)"
+                @click.right="handleBenchSwapOrPick(c.championId, false)"
+              />
+              <span v-if="championRanks[c.championId]" class="champion-rank"
+                >#{{ championRanks[c.championId] }}</span
+              >
+            </div>
           </template>
           <div class="rounded-xs bg-neutral-100 px-2 py-1 dark:bg-neutral-900">
+            <div v-if="championRanks[c.championId]" class="mb-1 text-xs font-medium">
+              {{ rankDescription(c.championId) }}
+            </div>
             <div
               class="flex text-[11px] text-neutral-900/60 dark:text-neutral-100/60"
               v-for="b of championAdjustment(c.championId)?.sortedAdjustments"
@@ -133,6 +159,7 @@
 <script setup lang="ts">
 import ChampionIcon from '@renderer-shared/components/widgets/ChampionIcon.vue'
 import { useComponentName } from '@renderer-shared/composables/useComponentName'
+import { useOpggChampionRanks } from '@renderer-shared/composables/opgg-champion-ranks'
 import { useAkariResourceProvider } from '@renderer-shared/providers/akari-resource'
 import { useInstance } from '@renderer-shared/shards'
 import { LeagueClientRenderer } from '@renderer-shared/shards/league-client'
@@ -155,6 +182,12 @@ const lcs = useLeagueClientStore()
 const lc = useInstance(LeagueClientRenderer)
 const logger = useInstance(LoggerRenderer)
 const resources = useAkariResourceProvider()
+const { ranks: championRanks, mode: rankMode } = useOpggChampionRanks()
+const rankDescription = (championId: number) =>
+  t('lanMobile.miniRank', {
+    rank: championRanks.value[championId],
+    mode: t(`opgg.filters.modes.${rankMode.value}`)
+  })
 
 const gameMode = computed(() => {
   if (!lcs.gameflow.session) {
@@ -417,6 +450,26 @@ const handleReroll = async (grabBack = false) => {
 </script>
 
 <style scoped>
+.ranked-champion-icon {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.champion-rank {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0 2px;
+  border-radius: 2px;
+  background: rgba(8, 18, 23, 0.92);
+  color: #c4ffe2;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 11px;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
 .champion-image-mixed {
   border-style: solid;
   border-width: 1px;

@@ -7,6 +7,7 @@ import { AutoChampConfigRenderer } from '@renderer-shared/shards/auto-champ-conf
 import { AutoGameflowRenderer } from '@renderer-shared/shards/auto-gameflow'
 import { AutoMiscRenderer } from '@renderer-shared/shards/auto-misc'
 import { AutoSelectRenderer } from '@renderer-shared/shards/auto-select'
+import { ChampionDataRenderer } from '@renderer-shared/shards/champion-data'
 import { ClientInstallationRenderer } from '@renderer-shared/shards/client-installation'
 import { ExtraAssetsRenderer } from '@renderer-shared/shards/extra-assets'
 import { FeatureGatingRenderer } from '@renderer-shared/shards/feature-gating'
@@ -14,6 +15,7 @@ import { GameClientRenderer } from '@renderer-shared/shards/game-client'
 import { InGameSendRenderer } from '@renderer-shared/shards/in-game-send'
 import { AkariIpcRenderer } from '@renderer-shared/shards/ipc'
 import { KeyboardShortcutsRenderer } from '@renderer-shared/shards/keyboard-shortcut'
+import { LanMobileRenderer } from '@renderer-shared/shards/lan-mobile'
 import { LeagueClientRenderer } from '@renderer-shared/shards/league-client'
 import { LeagueClientUxRenderer } from '@renderer-shared/shards/league-client-ux'
 import { LoggerRenderer } from '@renderer-shared/shards/logger'
@@ -49,6 +51,7 @@ manager.use(AutoGameflowRenderer)
 manager.use(AutoSelectRenderer)
 manager.use(AutoMiscRenderer)
 manager.use(ClientInstallationRenderer)
+manager.use(ChampionDataRenderer)
 manager.use(ExtraAssetsRenderer)
 manager.use(FeatureGatingRenderer)
 manager.use(GameClientRenderer)
@@ -58,6 +61,7 @@ manager.use(LeagueClientPeekRenderer)
 manager.use(LeagueClientRenderer)
 manager.use(LeagueClientUxRenderer)
 manager.use(LoggerRenderer)
+manager.use(LanMobileRenderer)
 manager.use(MainWindowUiRenderer)
 manager.use(NetworkRenderer)
 manager.use(PlayerTabsRenderer)

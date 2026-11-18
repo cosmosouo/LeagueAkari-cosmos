@@ -434,6 +434,12 @@ const targetDefinitions = [
     searchable: false
   },
   {
+    id: 'multi-window.lan-mobile',
+    route: { tab: 'multi-window' },
+    labelKey: 'lanMobile.title',
+    descriptionKey: 'lanMobile.settings.description'
+  },
+  {
     id: 'multi-window.opgg.enabled',
     route: { tab: 'multi-window' },
     parentId: 'multi-window.opgg',

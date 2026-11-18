@@ -177,10 +177,17 @@ export function adaptOpggChampionOverview(
   response: OpggChampionsResponse,
   options: OpggAdapterOptions
 ): ChampionDataOverview {
+  const hasSelectedPosition =
+    options.mode === 'ranked' &&
+    options.position !== undefined &&
+    options.position !== 'all' &&
+    options.position !== 'none'
   return {
     metadata: metadata(response.meta.version, response.meta.cached_at, options),
     sections: {
-      champions: response.data.map((item) => overviewItem(item, options.position))
+      champions: response.data
+        .filter((item) => !hasSelectedPosition || findPosition(item.positions, options.position))
+        .map((item) => overviewItem(item, options.position))
     }
   }
 }

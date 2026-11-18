@@ -1,0 +1,105 @@
+lanMobile:
+  title: 局域网手机端
+  enabled: 开启
+  disabled: 已关闭
+  running: 已开启
+  clients: '已连接 {{count}} 台手机'
+  miniRank: 'OP.GG · {{mode}} · 第 {{rank}} 名'
+  settings:
+    description: 在同一局域网的手机浏览器查看英雄数据，自动跟随电脑切换英雄与筛选条件
+    enableLabel: 启用局域网手机端
+    portLabel: 服务端口
+    portDescription: 手机访问使用的本机端口，默认 23946。更改后需重新扫码
+    applyLabel: 允许手机应用符文／技能
+    applyDescription: 开启后，可在选人阶段从手机应用当前英雄的符文与召唤师技能
+    addressLabel: 访问地址
+    addressDescription: 电脑和手机连接同一 Wi-Fi，在手机浏览器打开地址或扫码
+    stopped: 点击开启后显示地址
+    waiting: 正在等待英雄数据窗口
+    loopbackOnly: 未找到局域网地址，请连接 Wi-Fi 或有线网络后重试
+    copy: 复制地址
+    copied: 地址已复制
+    copyFailed: 复制失败，请扫描二维码
+    qrCode: 二维码
+    scan: 使用手机相机或浏览器扫码
+    restart: 重启服务
+    saveFailed: 设置保存失败
+  serviceErrors:
+    port-in-use: 端口已被占用，请更换端口或关闭占用程序
+    start-failed: 手机服务启动失败，请重试
+  phone:
+    title: 英雄数据
+    clientConnected: 客户端已连接
+    clientDisconnected: 客户端未连接
+    synchronized: 已同步
+    reconnecting: 重连中
+    invalidAddress: 地址已失效，请重新扫描电脑端的二维码或复制最新地址
+    offline: 与电脑的连接已断开，正在重连。请保持软件运行并连接同一 Wi-Fi
+    reconnect: 重新连接
+    connecting: 正在连接电脑
+    waitingForDesktop: 等待电脑端英雄数据窗口就绪
+    source: 数据源
+    mode: 模式
+    region: 地区
+    tier: 段位
+    patch: 版本
+    position: 位置
+    filters: 筛选
+    refresh: 刷新
+    champions: 榜单
+    currentChampion: 英雄
+    searchChampion: 搜索英雄
+    searchAugment: 搜索强化符文
+    effectiveSource: '当前数据源：{{source}}'
+    loading: 正在加载
+    dataUnavailable: 当前模式暂时没有可用的英雄数据，请更换数据源或稍后刷新
+    empty: 暂无数据
+    details: 详情
+    close: 关闭
+    noDescription: 暂无说明
+    all: 全部
+    rarity: 强化符文品质
+    rarities:
+      kSilver: 白银阶
+      kGold: 黄金阶
+      kPrismatic: 棱彩阶
+    sections: 英雄数据分类
+    section:
+      all: 全部
+      items: 装备
+      augments: 强化符文
+      runes: 符文／技能
+      skills: 技能点法
+    itemSlots:
+      starting: 初始装备
+      boots: 鞋子
+      core: 核心装备
+      fourth: 第四件装备
+      fifth: 第五件装备
+      sixth: 第六件装备
+      last: 后续装备
+      prism: 棱彩装备
+    itemRecommendation: '装备推荐 #{{rank}}'
+    runes: 符文配法
+    spells: 召唤师技能
+    apply: 应用
+    applyAll: 应用符文／技能
+    applied: 已应用到英雄联盟客户端
+  errors:
+    unauthorized: 地址已失效，请使用电脑端的最新地址
+    invalid-command: 此操作暂不可用，请等待同步后重试
+    desktop-unavailable: 英雄数据窗口暂不可用，请在电脑上开启
+    data-unavailable: 数据加载失败，请刷新后重试
+    busy: 正在处理上一个操作，请稍候
+    timeout: 操作超时，请检查电脑端状态后重试
+    apply-disabled: 电脑端已关闭手机应用符文／技能的权限
+    client-disconnected: 请先连接英雄联盟客户端
+    not-in-champ-select: 仅在非观战的英雄选择阶段可应用
+    champion-mismatch: 当前推荐与正在选择的英雄不一致，请等待同步
+    mode-mismatch: 当前推荐与本局模式不一致，请切换到本局模式
+    stale-view: 英雄数据已更新，请等待同步后重试
+    no-recommendation: 当前没有可应用的推荐
+    no-editable-rune-page: 客户端没有可编辑的符文页，请先腾出符文页
+    client-write-failed: 客户端应用失败，请检查客户端状态后重试
+    partially-applied: 部分内容已应用，其余内容失败，请检查客户端后重试
+    service-stopped: 电脑端手机服务已关闭，请重新开启并扫码

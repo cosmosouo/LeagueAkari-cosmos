@@ -170,6 +170,9 @@
           >
         </SettingsRow>
       </SettingsSection>
+      <SettingsSection setting-id="multi-window.lan-mobile" :title="t('lanMobile.title')">
+        <LanMobileSettings />
+      </SettingsSection>
       <SettingsSection
         setting-id="multi-window.ongoing-game"
         :title="
@@ -324,6 +327,7 @@
 
 <script setup lang="ts">
 import OpggIcon from '@renderer-shared/assets/icon/OpggIcon.vue'
+import LanMobileSettings from '@renderer-shared/components/lan-mobile/LanMobileSettings.vue'
 import SettingsRow from '@main-window/settings-navigation/NavigableSettingsRow.vue'
 import SettingsSection from '@main-window/settings-navigation/NavigableSettingsSection.vue'
 import { useInstance } from '@renderer-shared/shards'
