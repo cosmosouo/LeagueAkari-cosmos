@@ -416,7 +416,7 @@ img {
 }
 .augment-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4px;
   align-items: stretch;
 }
