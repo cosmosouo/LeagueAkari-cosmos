@@ -51,6 +51,8 @@ lanMobile:
     searchChampion: 搜索英雄
     searchAugment: 搜索强化符文
     effectiveSource: '当前数据源：{{source}}'
+    buildReference: '出装、符文、召唤师技能与点法参考 {{source}} 的{{mode}}数据'
+    buildReferenceUnavailable: 出装、符文与技能推荐暂时无法加载，请刷新重试
     loading: 正在加载
     dataUnavailable: 当前模式暂时没有可用的英雄数据，请更换数据源或稍后刷新
     empty: 暂无数据

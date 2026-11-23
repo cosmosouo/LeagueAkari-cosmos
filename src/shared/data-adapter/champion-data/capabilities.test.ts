@@ -25,8 +25,21 @@ describe('champion data capabilities', () => {
     expect(getChampionDataCapability('qq101', 'aram')).toBeNull()
     expect(supportsChampionDataFeature('qq101', 'aram_mayhem', 'champion-augments')).toBe(true)
     expect(supportsChampionDataFeature('qq101', 'aram_mayhem', 'item-builds')).toBe(false)
-    expect(supportsChampionDataFeature('opgg', 'aram_mayhem', 'item-builds')).toBe(false)
     expect(supportsChampionDataFeature('qq101', 'classic', 'champion-overview')).toBe(true)
     expect(supportsChampionDataFeature('qq101', 'classic', 'champion-summary')).toBe(false)
+  })
+
+  it('offers base build references alongside dedicated OP.GG Mayhem recommendations', () => {
+    expect(getChampionDataCapability('opgg', 'aram_mayhem')?.features).toEqual(
+      expect.arrayContaining([
+        'champion-overview',
+        'champion-summary',
+        'champion-augments',
+        'summoner-spells',
+        'ability-builds',
+        'item-builds',
+        'rune-pages'
+      ])
+    )
   })
 })

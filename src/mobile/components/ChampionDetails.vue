@@ -25,6 +25,10 @@
         {{ t('lanMobile.phone.applyAll') }}
       </button>
     </div>
+    <p v-if="buildReference || isBuildReferenceUnavailable" class="muted build-reference">
+      {{ buildReferenceText
+      }}<span v-if="buildReference?.patch"> · {{ buildReference.patch }}</span>
+    </p>
     <nav class="section-nav" :aria-label="t('lanMobile.phone.sections')">
       <button
         v-for="option in sectionOptions"
@@ -204,6 +208,21 @@ const emit = defineEmits<{
 }>()
 const { t } = useTranslation()
 const champion = computed(() => props.view.champion)
+const buildReference = computed(() => champion.value?.buildReference)
+const buildReferenceText = computed(() => {
+  const reference = buildReference.value
+  if (!reference) return t('lanMobile.phone.buildReferenceUnavailable')
+  return t('lanMobile.phone.buildReference', {
+    source: props.view.filters.sources.find((option) => option.value === reference.source)?.label,
+    mode: props.view.filters.modes.find((option) => option.value === reference.mode)?.label
+  })
+})
+const isBuildReferenceUnavailable = computed(
+  () =>
+    props.view.mode === 'aram_mayhem' &&
+    props.view.effectiveSource === 'opgg' &&
+    !buildReference.value
+)
 type Section = 'all' | 'items' | 'augments' | 'runes' | 'skills'
 const section = ref<Section>('all')
 const sectionOptions = computed<Section[]>(() => {

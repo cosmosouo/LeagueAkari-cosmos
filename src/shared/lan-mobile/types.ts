@@ -1,4 +1,5 @@
 import type {
+  ChampionBuildReference,
   ChampionDataMode,
   ChampionDataPosition,
   ChampionDataSourceId,
@@ -57,6 +58,7 @@ export interface MobileChampionDetails extends MobileChampion {
   winRate: number | null
   pickRate: number | null
   banRate: number | null
+  buildReference?: ChampionBuildReference
   runes: MobileRunePage[]
   summonerSpells: MobileSpellRecommendation[]
   items: MobileItemGroup[]

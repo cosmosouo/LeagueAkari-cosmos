@@ -82,6 +82,9 @@ export interface ChampionDataMetadata {
   updatedAt: string | null
 }
 
+/** Identifies a separate dataset used for the champion's base build recommendations. */
+export type ChampionBuildReference = Pick<ChampionDataMetadata, 'source' | 'mode' | 'patch'>
+
 export interface ChampionPerformance {
   games: number | null
   wins: number | null
@@ -123,6 +126,7 @@ export interface ChampionDataDetails {
   metadata: ChampionDataMetadata
   championId: number
   summary: ChampionOverviewItem
+  buildReference?: ChampionBuildReference
   sections: {
     matchups?: ChampionMatchup[]
     synergies?: ChampionSynergy[]

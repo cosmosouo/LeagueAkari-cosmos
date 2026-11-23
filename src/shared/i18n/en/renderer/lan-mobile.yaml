@@ -52,6 +52,8 @@ lanMobile:
     searchChampion: Search champions
     searchAugment: Search augments
     effectiveSource: 'Current source: {{source}}'
+    buildReference: 'Items, runes, summoner spells and skills use {{source}} {{mode}} recommendations'
+    buildReferenceUnavailable: Item, rune and skill recommendations could not be loaded. Refresh to retry
     loading: Loading
     dataUnavailable: No champion data is available for this mode. Change source or refresh later
     empty: No data

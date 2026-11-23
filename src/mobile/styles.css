@@ -294,6 +294,10 @@ img {
   align-items: center;
   padding: 7px 3px 10px;
 }
+.build-reference {
+  padding: 0 3px 6px;
+  line-height: 1.5;
+}
 .champion-portrait .resource-icon {
   width: 44px;
   height: 44px;

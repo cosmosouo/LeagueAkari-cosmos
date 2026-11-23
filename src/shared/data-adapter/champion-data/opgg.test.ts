@@ -176,7 +176,7 @@ describe('OP.GG champion data adapter', () => {
     expect(JSON.stringify(result)).not.toContain('name')
   })
 
-  it('omits ordinary build sections when adapting a Mayhem response', () => {
+  it('retains supported build sections when adapting Mayhem data', () => {
     const response = {
       data: {
         summary: {
@@ -205,8 +205,11 @@ describe('OP.GG champion data adapter', () => {
     } as OpggChampionBuildResponse
 
     const result = adaptOpggChampionDetails(response, { mode: 'aram_mayhem' })
-    expect(result.sections.itemBuilds).toBeUndefined()
-    expect(result.sections.runePages).toBeUndefined()
+    expect(result.sections.itemBuilds?.find((slot) => slot.slot === 'core')).toMatchObject({
+      options: [{ itemIds: [6655], performance: { winRate: 0.6 } }]
+    })
+    expect(result.sections.runePages).toEqual([])
+    expect(result.sections.matchups).toBeUndefined()
     expect(result.sections.augments).toEqual([])
   })
 })

@@ -92,6 +92,21 @@
           </div>
         </div>
 
+        <div
+          v-if="buildReference || isBuildReferenceUnavailable"
+          class="col-span-full px-2 pb-1 text-xs text-(--la-color-text-primary) opacity-75"
+        >
+          <template v-if="buildReference">
+            {{
+              t('opgg.champion.buildReference', {
+                source: t(`opgg.filters.sources.${buildReference.source}`),
+                mode: t(`opgg.filters.modes.${buildReference.mode}`)
+              })
+            }}<span v-if="buildReference.patch"> · {{ buildReference.patch }}</span>
+          </template>
+          <template v-else>{{ t('opgg.champion.buildReferenceUnavailable') }}</template>
+        </div>
+
         <!-- 堆叠的艺术 -->
         <OpggChampionBalance />
         <OpggChampionCounters />
@@ -144,11 +159,19 @@ import OpggChampionSpells from './widgets/OpggChampionSpells.vue'
 import OpggChampionStarterItems from './widgets/OpggChampionStarterItems.vue'
 import OpggChampionSynergies from './widgets/OpggChampionSynergies.vue'
 
-const { champion, position, kiwiAugments, cancel, isLoading } = useOpgg()
+const { champion, details, mode, position, kiwiAugments, cancel, isLoading } = useOpgg()
 
 const { t } = useTranslation()
 
 const resources = useAkariResourceProvider()
+
+const buildReference = computed(() => details.value?.buildReference)
+const isBuildReferenceUnavailable = computed(
+  () =>
+    mode.value === 'aram_mayhem' &&
+    details.value?.metadata.source === 'opgg' &&
+    !buildReference.value
+)
 
 const summary = computed(() => {
   if (!champion.value) {

@@ -374,13 +374,36 @@ export function adaptOpggMayhemAugments(
 export function adaptOpggMayhemDetails(
   tierItem: OpggAramMayhemTierItem,
   augmentsResponse: OpggAramMayhemChampionAugmentsResponse,
-  options: Omit<OpggAdapterOptions, 'mode'>
+  options: Omit<OpggAdapterOptions, 'mode'>,
+  aramBuildResponse?: OpggChampionBuildResponse
 ): ChampionDataDetails {
   const overview = adaptOpggMayhemOverview({ data: [tierItem] }, options)
+  const builds = aramBuildResponse
+    ? adaptOpggChampionDetails(aramBuildResponse, { mode: 'aram', position: 'none' })
+    : null
   return {
     metadata: overview.metadata,
     championId: tierItem.champion_id,
     summary: overview.sections.champions[0],
-    sections: { augments: adaptOpggMayhemAugments(augmentsResponse) }
+    ...(builds
+      ? {
+          buildReference: {
+            source: builds.metadata.source,
+            mode: builds.metadata.mode,
+            patch: builds.metadata.patch
+          }
+        }
+      : {}),
+    sections: {
+      augments: adaptOpggMayhemAugments(augmentsResponse),
+      ...(builds
+        ? {
+            summonerSpells: builds.sections.summonerSpells,
+            abilityBuilds: builds.sections.abilityBuilds,
+            itemBuilds: builds.sections.itemBuilds,
+            runePages: builds.sections.runePages
+          }
+        : {})
+    }
   }
 }

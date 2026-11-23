@@ -222,7 +222,7 @@ describe('champion data legacy view model', () => {
     )
   })
 
-  it('uses the dedicated Mayhem augment view without creating ordinary ARAM builds', () => {
+  it('keeps augment-only Mayhem data valid when base recommendations are unavailable', () => {
     const details: ChampionDataDetails = {
       metadata: {
         source: 'opgg',

@@ -167,6 +167,8 @@ opgg:
     tierText: T{{tier}}
     applyRunes: Import Current Item Build
     applyRunesText: Build Applied
+    buildReference: 'Items, runes, summoner spells and skill order use {{source}} {{mode}} recommendations'
+    buildReferenceUnavailable: Item, rune and skill recommendations could not be loaded. Refresh to retry
     augmentAll: All
     augmentGold: Gold
     augmentSilver: Silver

@@ -137,12 +137,29 @@ export class ChampionDataMainSourceLoader implements ChampionDataSourceLoader {
     options: ChampionDataLoadOptions
   ): Promise<ChampionDataDetails | null> {
     if (query.mode === 'aram_mayhem') {
-      const [tiers, augments] = await Promise.all([
+      // OP.GG's Mayhem content API supplies ranks and augments, while its champion build API
+      // supports ARAM. Keep those datasets distinct and label the optional ARAM reference.
+      const [tiers, augments, builds] = await Promise.allSettled([
         this._opggApi.getAramMayhemTiers(options),
-        this._opggApi.getAramMayhemChampionAugments(championId, options)
+        this._opggApi.getAramMayhemChampionAugments(championId, options),
+        this._opggApi.getChampion('global', 'aram', championId, 'none', {
+          tier: 'all',
+          signal: options.signal
+        })
       ])
-      const tierItem = tiers.data.data.find((item) => item.champion_id === championId)
-      return tierItem ? adaptOpggMayhemDetails(tierItem, augments.data, { dataDate: null }) : null
+      options.signal?.throwIfAborted()
+      if (tiers.status === 'rejected') throw tiers.reason
+      if (augments.status === 'rejected') throw augments.reason
+      this._logPartialFailure('OP.GG Mayhem ARAM build reference', builds)
+      const tierItem = tiers.value.data.data.find((item) => item.champion_id === championId)
+      return tierItem
+        ? adaptOpggMayhemDetails(
+            tierItem,
+            augments.value.data,
+            { dataDate: null },
+            builds.status === 'fulfilled' ? builds.value.data : undefined
+          )
+        : null
     }
 
     const region = (query.region ?? 'global') as RegionType

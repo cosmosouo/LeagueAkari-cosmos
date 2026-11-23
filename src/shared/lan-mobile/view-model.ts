@@ -77,6 +77,7 @@ export function mobileChampionDetailsFromData(
     winRate: details.summary.performance.winRate,
     pickRate: details.summary.performance.pickRate,
     banRate: details.summary.performance.banRate,
+    ...(details.buildReference ? { buildReference: { ...details.buildReference } } : {}),
     runes: (details.sections.runePages ?? []).map((page, index) => ({
       rank: page.performance.rank ?? index + 1,
       primaryStyleId: page.primaryStyleId,
