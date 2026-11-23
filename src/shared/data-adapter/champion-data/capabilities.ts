@@ -48,8 +48,7 @@ export const CHAMPION_DATA_CAPABILITIES: Readonly<
         'champion-augments',
         'summoner-spells',
         'ability-builds',
-        'item-builds',
-        'rune-pages'
+        'item-builds'
       ]
     },
     {

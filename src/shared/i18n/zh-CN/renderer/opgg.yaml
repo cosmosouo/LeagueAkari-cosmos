@@ -167,8 +167,8 @@ opgg:
     tierText: T{{tier}} 级别
     applyRunes: 导入当前装备方案
     applyRunesText: 方案应用
-    buildReference: '出装、符文、召唤师技能与技能点法参考 {{source}} 的{{mode}}数据'
-    buildReferenceUnavailable: 出装、符文与技能推荐暂时无法加载，请刷新重试
+    buildReference: '出装、召唤师技能与技能点法参考 {{source}} 的{{mode}}数据'
+    buildReferenceUnavailable: 出装、召唤师技能与技能点法暂时无法加载，请刷新重试
     augmentAll: 全部
     augmentGold: 黄金阶
     augmentSilver: 白银阶

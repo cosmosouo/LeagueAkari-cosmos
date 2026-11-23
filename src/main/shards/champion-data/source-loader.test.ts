@@ -90,6 +90,9 @@ function setup(
       requests.push(config)
       let data: unknown
       switch (config.url) {
+        case '/api/global/champions/aram/versions':
+          data = { data: ['16.23'] }
+          break
         case '/api/contents/tiers':
           data = {
             data: options.missingMayhemChampion
@@ -122,7 +125,7 @@ function setup(
 }
 
 describe('OP.GG Mayhem base recommendations', () => {
-  it('restores desktop and phone builds while retaining the Mayhem champion rank and augments', async () => {
+  it('provides Mayhem augments and base builds without regular rune pages on desktop and phone', async () => {
     const { loader, requests } = setup()
     const signal = new AbortController().signal
     const details = await loader.loadDetails(
@@ -139,9 +142,10 @@ describe('OP.GG Mayhem base recommendations', () => {
       buildReference: { source: 'opgg', mode: 'aram', patch: '16.23' },
       sections: { augments: [{ augmentId: 1353, tier: 0, performanceScore: 94.69 }] }
     })
+    expect(details?.sections.runePages).toBeUndefined()
     const desktop = toOpggChampionDetailsViewModel(details!)
     expect(desktop.data.summoner_spells?.[0].ids).toEqual([4, 32])
-    expect(desktop.data.runes?.[0].primary_rune_ids).toEqual([8439, 8446, 8429, 8451])
+    expect(desktop.data.runes).toBeUndefined()
     expect(desktop.data.skill_masteries[0].ids).toEqual(['Q', 'W', 'E'])
     expect(desktop.data.skill_masteries[0].builds[0].order).toEqual(['Q', 'W', 'E', 'Q', 'Q', 'R'])
     expect(desktop.data.starter_items[0].ids).toEqual([2051, 1004])
@@ -154,7 +158,7 @@ describe('OP.GG Mayhem base recommendations', () => {
       id: 12,
       rank: 8,
       buildReference: { source: 'opgg', mode: 'aram', patch: '16.23' },
-      runes: [{ rank: 1, primaryRuneIds: [8439, 8446, 8429, 8451] }],
+      runes: [],
       summonerSpells: [{ rank: 1, spells: [{ id: 4 }, { id: 32 }] }],
       abilities: [{ priority: ['Q', 'W', 'E'], order: ['Q', 'W', 'E', 'Q', 'Q', 'R'] }],
       augments: [{ id: 1353, rank: 1 }]
@@ -172,6 +176,22 @@ describe('OP.GG Mayhem base recommendations', () => {
       params: { tier: 'all', version: undefined },
       signal
     })
+  })
+
+  it('retains regular ARAM rune pages on both desktop and phone', async () => {
+    const { loader } = setup()
+    const details = await loader.loadDetails(
+      'opgg',
+      { mode: 'aram', region: 'global', tier: 'all' },
+      12
+    )
+    expect(details?.metadata.mode).toBe('aram')
+    expect(details?.buildReference).toBeUndefined()
+    const desktop = toOpggChampionDetailsViewModel(details!)
+    expect(desktop.data.runes?.[0].primary_rune_ids).toEqual([8439, 8446, 8429, 8451])
+    const phone = mobileChampionDetailsFromData(details!, resources)
+    expect(phone.runes[0].primaryRuneIds).toEqual([8439, 8446, 8429, 8451])
+    expect(phone.summonerSpells[0].spells.map((spell) => spell.id)).toEqual([4, 32])
   })
 
   it('keeps Mayhem ranks and augments available when the ARAM build request fails', async () => {

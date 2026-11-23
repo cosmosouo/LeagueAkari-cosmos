@@ -22,7 +22,9 @@
         :title="applyUnavailableText"
         @click="apply('all', 0)"
       >
-        {{ t('lanMobile.phone.applyAll') }}
+        {{
+          champion.runes.length ? t('lanMobile.phone.applyAll') : t('lanMobile.phone.applySpells')
+        }}
       </button>
     </div>
     <p v-if="buildReference || isBuildReferenceUnavailable" class="muted build-reference">
@@ -37,7 +39,11 @@
         :aria-pressed="section === option"
         @click="section = option"
       >
-        {{ t(`lanMobile.phone.section.${option}`) }}
+        {{
+          option === 'runes' && !champion.runes.length
+            ? t('lanMobile.phone.spells')
+            : t(`lanMobile.phone.section.${option}`)
+        }}
       </button>
     </nav>
 

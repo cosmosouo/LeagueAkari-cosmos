@@ -37,9 +37,10 @@ describe('champion data capabilities', () => {
         'champion-augments',
         'summoner-spells',
         'ability-builds',
-        'item-builds',
-        'rune-pages'
+        'item-builds'
       ])
     )
+    expect(supportsChampionDataFeature('opgg', 'aram_mayhem', 'rune-pages')).toBe(false)
+    expect(supportsChampionDataFeature('opgg', 'aram', 'rune-pages')).toBe(true)
   })
 })

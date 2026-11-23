@@ -208,7 +208,7 @@ describe('OP.GG champion data adapter', () => {
     expect(result.sections.itemBuilds?.find((slot) => slot.slot === 'core')).toMatchObject({
       options: [{ itemIds: [6655], performance: { winRate: 0.6 } }]
     })
-    expect(result.sections.runePages).toEqual([])
+    expect(result.sections.runePages).toBeUndefined()
     expect(result.sections.matchups).toBeUndefined()
     expect(result.sections.augments).toEqual([])
   })

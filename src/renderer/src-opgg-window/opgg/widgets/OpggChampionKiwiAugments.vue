@@ -3,6 +3,9 @@
     class="@container mb-1 rounded border border-black/10 p-2 last:mb-0 dark:border-[#37373c]"
     v-if="augments && Object.keys(augments).length"
   >
+    <div class="mb-2 text-[13px] font-bold" role="heading" aria-level="2">
+      {{ t('opgg.mayhemOverview.sections.augments') }}
+    </div>
     <NTabs v-model:value="augmentTab" size="small" :animated="false">
       <NTabPane v-for="group of augments" :key="group.rarity" :name="group.rarity">
         <template #tab>

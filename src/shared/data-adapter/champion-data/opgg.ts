@@ -400,8 +400,7 @@ export function adaptOpggMayhemDetails(
         ? {
             summonerSpells: builds.sections.summonerSpells,
             abilityBuilds: builds.sections.abilityBuilds,
-            itemBuilds: builds.sections.itemBuilds,
-            runePages: builds.sections.runePages
+            itemBuilds: builds.sections.itemBuilds
           }
         : {})
     }
