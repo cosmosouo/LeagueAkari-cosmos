@@ -439,11 +439,14 @@ img {
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
-.rarity-kGold {
-  border-color: #5c4e32;
+.augment-tile.rarity-kSilver {
+  border-color: #f7f7f7;
 }
-.rarity-kPrismatic {
-  border-color: #51466a;
+.augment-tile.rarity-kGold {
+  border-color: #ffb700;
+}
+.augment-tile.rarity-kPrismatic {
+  border-color: #e78fff;
 }
 .loadout-list {
   display: grid;
