@@ -280,6 +280,7 @@ yarn typecheck    # Type check (Node + Web)
 yarn test         # Vitest test suite
 yarn storybook    # Component/story preview
 yarn format       # Prettier
+yarn format:check # Check Prettier formatting
 ```
 
 ### Testing principles

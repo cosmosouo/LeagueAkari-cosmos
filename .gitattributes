@@ -1,2 +1,4 @@
+* text=auto eol=lf
+addons/* text eol=crlf
 resources/rebuild_WMI.bat text eol=crlf
 yarn.lock whitespace=cr-at-eol

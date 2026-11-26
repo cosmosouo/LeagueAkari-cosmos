@@ -1,6 +1,7 @@
 {
   "name": "league-akari",
   "version": "1.5.2-beta",
+  "license": "MIT",
   "author": {
     "name": "hanxven",
     "email": "hanxven@gmail.com"
@@ -9,6 +10,7 @@
   "main": "./out/main/main.js",
   "scripts": {
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",

@@ -3,3 +3,6 @@ dist
 pnpm-lock.yaml
 LICENSE.md
 .yarn
+CLAUDE.md
+native/*/dist/
+src/shared/test-fixtures/api/snapshots/

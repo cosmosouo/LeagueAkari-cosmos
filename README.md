@@ -1,45 +1,38 @@
 <div align="center">
-  <div>
-    <img
+  <img
     src="https://github.com/LeagueAkari/LeagueAkari/raw/HEAD/pictures/logo.png"
     width="128"
     height="128"
     alt="League Akari logo"
-    />
-  </div>
-  A League of Legends client toolkit based on the LCU API
+  />
+  <h1>League Akari</h1>
+  <p>A League of Legends companion built around the League Client Update (LCU) API.</p>
 </div>
 
-<p align="center">
-    <a href="https://github.com/LeagueAkari/LeagueAkari/releases"><img src="https://img.shields.io/github/v/release/LeagueAkari/LeagueAkari?include_prereleases&style=flat-square&label=Version" alt="Latest version"></a>
-    <a href="https://github.com/LeagueAkari/LeagueAkari/releases">
-    <img src="https://img.shields.io/github/downloads/LeagueAkari/LeagueAkari/total?style=flat&label=Downloads"></a>
-    <a href="https://github.com/LeagueAkari/LeagueAkari/stargazers">
-    <img src="https://img.shields.io/github/stars/LeagueAkari/LeagueAkari?style=flat&label=Stars">
-  </a>
-</p>
+<p align="center"><a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a></p>
 
-# League Akari
+This repository is a community fork of [LeagueAkari/LeagueAkari](https://github.com/LeagueAkari/LeagueAkari). It includes a local-network mobile view for the OP.GG window. The upstream project remains the source for official releases and general project information.
 
-A League of Legends client toolkit based on the LCU API.
+## Features
 
-## Download and Usage
+- Look up player and match information from supported League of Legends clients.
+- Configure champion select, client workflows, overlays, and desktop utilities.
+- View champion recommendations in the OP.GG window and mirror them to a phone on the same local network.
+- Use the ongoing-game, auxiliary, and cooldown-timer windows.
 
-Download the latest Windows or macOS build from [GitHub Releases](https://github.com/LeagueAkari/LeagueAkari/releases).
+See [the local mobile guide](docs/lan-mobile.md) for setup, synchronization, and phone usage.
 
-Administrator privileges are not required. On Windows, some native shortcuts, overlays, and client-window utilities require administrator privileges.
+## Download and support
 
-Most Riot-operated regions are supported. Tencent-operated servers are not supported.
+Official Windows and macOS releases are published on the [upstream Releases page](https://github.com/LeagueAkari/LeagueAkari/releases). This fork may contain changes that are not included in those releases.
 
-## Feedback and Contributing
+Administrator privileges are not normally required. Some Windows shortcuts, overlays, and client-window utilities may require them. Most Riot-operated regions are supported; Tencent-operated servers are not supported.
 
-Use [GitHub Issues](https://github.com/LeagueAkari/LeagueAkari/issues) to report bugs or suggest improvements. Please include enough detail to reproduce the problem when filing a bug report.
-
-Code contributions are welcome. Feel free to open a pull request with fixes or new features.
+For fork-specific bugs and requests, use [this repository's issue tracker](https://github.com/cosmosouo/LeagueAkari-cosmos/issues). For upstream project questions, see [LeagueAkari/LeagueAkari](https://github.com/LeagueAkari/LeagueAkari).
 
 ## Development
 
-League Akari uses Node.js 24 and Yarn 4. Enable Corepack before installing dependencies:
+The project uses Node.js 24, Yarn 4, Electron, Vue 3, and TypeScript. Enable Corepack and install the locked dependencies before starting the app:
 
 ```sh
 corepack enable
@@ -47,9 +40,11 @@ yarn install --immutable
 yarn dev
 ```
 
-Common commands:
+Useful checks and builds:
 
 ```sh
+yarn format
+yarn format:check
 yarn typecheck
 yarn test
 yarn storybook
@@ -58,31 +53,25 @@ yarn build:win
 yarn build:mac
 ```
 
-`yarn build` creates the production application bundle. Use the platform-specific commands to create distributable packages.
+`yarn format` applies the repository's Prettier configuration. Run `yarn format:check` before submitting changes. `yarn build` creates the application bundle; the platform-specific commands also create distributable packages.
 
-## References
+The source is split between the Electron main process, five renderer windows, shared services and types, and the mobile web client. See [AGENTS.md](AGENTS.md) for the repository map and architecture notes, and [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow.
 
-The development of **League Akari** has been greatly inspired by several outstanding open-source projects. These projects provided valuable insights and guidance for various modules of the software. We would like to extend our sincere appreciation to the authors and maintainers of the following resources:
+## Acknowledgements
 
-| Project                                                                                            | Description                                                                          |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [Pengu Loader](https://github.com/PenguLoader/PenguLoader)                                         | The ultimate JavaScript plugin loader, build your unmatched LoL Client.              |
-| [League of Legends LCU and Riot Client API Docs](https://github.com/KebsCS/lcu-and-riotclient-api) | League of Legends LCU and Riot Client API Docs                                       |
-| [Community Dragon](https://www.communitydragon.org/documentation/assets)                           | Resource management and asset documentation reference.                               |
-| [Seraphine](https://github.com/Zzaphkiel/Seraphine)                                                | Provided integration approaches and insights into combining multiple tools.          |
-| [fix-lcu-window](https://github.com/LeagueTavern/fix-lcu-window)                                   | Resolved the issue with abnormal window size of the League of Legends client.        |
-| [Joi](https://github.com/watchingfun/Joi)                                                          | A League of Legends assistant.                                                       |
-| [vscode-league-respawn-timer](https://github.com/Coooookies/vscode-league-respawn-timer)           | An extension to display League of Legends player respawn time in Visual Studio Code. |
-| [LeaguePrank](https://github.com/LeagueTavern/LeaguePrank)                                         | Provided inspiration for playful and humorous features.                              |
+League Akari was inspired by and builds on information from these projects and resources:
 
-## Disclaimer
+| Project                                                                                  | Description                                           |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [Pengu Loader](https://github.com/PenguLoader/PenguLoader)                               | A JavaScript plugin loader for the League client.     |
+| [LCU and Riot Client API Docs](https://github.com/KebsCS/lcu-and-riotclient-api)         | Community-maintained API documentation.               |
+| [CommunityDragon](https://www.communitydragon.org/documentation/assets)                  | Game asset documentation and resources.               |
+| [Seraphine](https://github.com/Zzaphkiel/Seraphine)                                      | Integration approaches for League companion tools.    |
+| [fix-lcu-window](https://github.com/LeagueTavern/fix-lcu-window)                         | A utility for correcting League client window sizing. |
+| [Joi](https://github.com/watchingfun/Joi)                                                | A League of Legends assistant.                        |
+| [vscode-league-respawn-timer](https://github.com/Coooookies/vscode-league-respawn-timer) | A respawn timer extension for Visual Studio Code.     |
+| [LeaguePrank](https://github.com/LeagueTavern/LeaguePrank)                               | A source of inspiration for playful features.         |
 
-This software is a tool developed based on Riot's League Client Update (LCU) API. It does not use intrusive techniques and theoretically does not directly interfere with or modify game data. However, please be aware of potential compatibility issues or risks associated with game updates or anti-cheat systems.
+## License and disclaimer
 
-The developer is not responsible for any consequences, such as account bans or data loss, resulting from the use of this software. Users are advised to fully understand the risks and take responsibility for their actions.
-
-Additionally, **this application is not officially supported or endorsed by Riot Games**. All rights are reserved by Riot Games. Use it at your own risk, as it may violate the game's terms of service.
-
-This disclaimer is intended to provide transparency and enable users to make informed decisions. Thank you for your understanding, and please ensure fair play in the gaming environment.
-
-[![Star History Chart](https://star-history.dera.page/svg?repos=LeagueAkari/LeagueAkari&type=Date)](https://star-history.dera.page/#LeagueAkari/LeagueAkari&Date)
+This project is distributed under the [MIT License](LICENSE). League Akari is an independent community project and is not affiliated with, sponsored, or endorsed by Riot Games. League of Legends and Riot Games are trademarks of Riot Games, Inc. The software interacts with client APIs that may change; use it at your own discretion and follow the applicable game and service terms.
